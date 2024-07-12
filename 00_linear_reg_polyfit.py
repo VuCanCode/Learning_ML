@@ -65,7 +65,7 @@ def train(order: int,
     epoch = 0
     step_size = 1e-5
     
-    while pre_loss - cur_loss > 1e-6 and epoch < lim:
+    while pre_loss - cur_loss > 1e-3 and epoch < lim:
         y_pred = predict(w, x_train)
         # print(f"y_pred shape {y_pred.shape}")
         pre_loss = cur_loss
@@ -84,12 +84,12 @@ def train(order: int,
     plt.ylabel("loss")
     plt.grid()
     plt.show()
-    return w
+    return w, losses[-1]
 
 
 if __name__ == "__main__":
     # generate data
-    order = 5
+    order = 6
     x = np.arange(0,2,0.01, dtype=float)
     # gt_coef = np.random.randint(-5, 5, order + 1)
     # y_func = lambda x : gen_poly_func(gt_coef, x)
@@ -97,8 +97,8 @@ if __name__ == "__main__":
     y = gen_data(y_func, x)
 
     # train model to fit
-    weight = train(order = 6, x=x, y=y)
-
+    weight, loss = train(order=order, x=x, y=y)
+    print(f"model loss {loss}")
     print(f"predicted weight {weight[::-1]}")
     # print(f"gt weight {gt_coef}")
 
