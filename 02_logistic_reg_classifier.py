@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings
-warnings.filterwarnings('ignore')
 
 
 # %%
@@ -37,6 +36,7 @@ def drop_low_corr(data: np.ndarray,
 
 # %%
 def sigmoid(y_pred: np.matrix) -> float:
+    y_pred = np.maximum(-10, np.minimum(10, y_pred)) # avoid overflow
     value =  1 / (1 + np.exp(-y_pred)) 
     return value
 
