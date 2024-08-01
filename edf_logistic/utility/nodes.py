@@ -50,13 +50,6 @@ class ComputeNode(Node):
         if len(self.parents) > 1:
             for parent, grad in zip(self.parents, parent_grads):
                 parent.grad = grad
-                try:
-                    print(f"CURRENT OPERATION {self.operation}")
-                    print(f"PARENT OPERATION {parent.operation}")
-                    print(parent.grad.shape)
-                    print(f"self grad {self.grad.shape}")
-                except:
-                    print("input node or para node")
         else:
             self.parents[0].grad = parent_grads
 

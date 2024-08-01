@@ -29,17 +29,17 @@ class Sigmoid():
 class Loss():
     def __call__(self, 
                  y_pred: np.ndarray,
-                 y: np.ndarray,
-                 X: np.ndarray):
+                 y: np.ndarray):
         epsilon = 1e-12  # Small value to avoid log(0)
         y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
-        return -(y.T @ np.log(y_pred) + (1 - y).T @ np.log(1 - y_pred))
+        m = y_pred.shape[0]
+        return -(y.T @ np.log(y_pred) + (1 - y).T @ np.log(1 - y_pred)) / m, None
     
     def backward(self,
                  grad: np.ndarray,
                  y_pred: np.ndarray,
-                 y: np.ndarray,
-                 X: np.ndarray):
+                 y: np.ndarray):
         dif = y_pred - y
-        return grad * dif, grad * dif, grad * dif
+        m = y_pred.shape[0]
+        return grad * dif / m, None
     
