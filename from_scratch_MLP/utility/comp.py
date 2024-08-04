@@ -6,12 +6,15 @@ class MatMul():
     def __call__(self,
                  A: np.ndarray,
                  B: np.ndarray):
+        A = np.hstack((A, np.ones((A.shape[0], 1)))) # cpt notation to add bias
         return np.matmul(A, B)
     
     def backward(self,
                  grad: np.ndarray,
                  A: np.ndarray,
                  B: np.ndarray):
+        B = B[:-1, :] # cpt notation to add bias
+        A = np.hstack((A, np.ones((A.shape[0], 1)))) # cpt notation to add bias
         return np.dot(grad, B.T), np.dot(A.T, grad)
     
 class Sigmoid():

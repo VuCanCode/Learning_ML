@@ -24,17 +24,11 @@ X_train, X_test, y_train, y_test = train_test_split(scaled_data,
                                                     y,
                                                     test_size=30,
                                                     train_size=70,
-                                                    random_state=9)
+                                                    random_state=8)
 
-
-# convert X to cpt notation
-ones_col = np.ones((X_train.shape[0], 1))
-X_train = np.hstack((X_train, ones_col))
-ones_col = np.ones((X_test.shape[0], 1))
-X_test = np.hstack((X_test, ones_col))
 
 mlp = MLP(input_dim=X_train.shape,
-          hidden_dim=3,
+          hidden_dim=50,
           output_dim=3,
           n_classes=3)
 
@@ -45,7 +39,7 @@ i = 0
 epoch = 500
 test_accs = []
 
-while i < epoch and pre_loss - current_loss > 1e-5:
+while i <= epoch and pre_loss - current_loss > 1e-5:
     pre_loss = current_loss
     current_loss = mlp.forward(X_train, y_train)
     mlp.backward()

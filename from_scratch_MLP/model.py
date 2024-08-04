@@ -23,10 +23,11 @@ class MLP:
         self.nodes = []
         self.W1 = ParameterNode(np.random.normal(loc=0,
                                                  scale=2/input_dim[1],
-                                                 size=(input_dim[1], hidden_dim)))
+                                                 size=(input_dim[1] + 1, hidden_dim)))
+        print(self.W1.value.shape)
         self.W2 = ParameterNode(np.random.normal(loc=0,
                                                  scale=2/hidden_dim,
-                                                 size=(hidden_dim, n_classes)))
+                                                 size=(hidden_dim + 1, n_classes)))
 
     def add_node(self, node):
         self.nodes.append(node)
